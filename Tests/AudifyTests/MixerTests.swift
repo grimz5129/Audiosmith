@@ -1,5 +1,5 @@
 import XCTest
-@testable import MicMerge
+@testable import Audify
 
 final class MixerTests: XCTestCase {
     func testMixSumsChannels() {

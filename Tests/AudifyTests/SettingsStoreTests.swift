@@ -1,12 +1,12 @@
 import XCTest
-@testable import MicMerge
+@testable import Audify
 
 final class SettingsStoreTests: XCTestCase {
     private var defaults: UserDefaults!
 
     override func setUp() {
-        defaults = UserDefaults(suiteName: "MicMergeTests")!
-        defaults.removePersistentDomain(forName: "MicMergeTests")
+        defaults = UserDefaults(suiteName: "AudifyTests")!
+        defaults.removePersistentDomain(forName: "AudifyTests")
     }
 
     func testDefaultsAreEmptyAndOff() {

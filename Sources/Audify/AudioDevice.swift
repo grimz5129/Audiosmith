@@ -11,8 +11,8 @@ struct AudioDevice: Identifiable, Equatable, Hashable {
             device.inputChannelCount > 0
                 && !device.uid.localizedCaseInsensitiveContains("blackhole")
                 && !device.name.localizedCaseInsensitiveContains("blackhole")
-                && !device.uid.localizedCaseInsensitiveContains("micmerge")
-                && !device.name.localizedCaseInsensitiveContains("micmerge")
+                && !device.uid.localizedCaseInsensitiveContains("audify")
+                && !device.name.localizedCaseInsensitiveContains("audify")
         }
     }
 }

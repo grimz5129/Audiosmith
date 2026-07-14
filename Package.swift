@@ -2,10 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "MicMerge",
+    name: "Audify",
     platforms: [.macOS(.v13)],
     targets: [
-        .executableTarget(name: "MicMerge", path: "Sources/MicMerge"),
-        .testTarget(name: "MicMergeTests", dependencies: ["MicMerge"], path: "Tests/MicMergeTests")
+        .executableTarget(name: "Audify", path: "Sources/Audify"),
+        .testTarget(name: "AudifyTests", dependencies: ["Audify"], path: "Tests/AudifyTests")
     ]
 )

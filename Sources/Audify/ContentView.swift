@@ -66,7 +66,7 @@ struct ContentView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            Button("Quit MicMerge") {
+            Button("Quit Audify") {
                 state.engine.stop()
                 NSApplication.shared.terminate(nil)
             }

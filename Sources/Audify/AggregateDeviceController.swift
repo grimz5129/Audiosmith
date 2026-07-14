@@ -25,8 +25,8 @@ final class AggregateDeviceController {
         ])
 
         let description: [String: Any] = [
-            kAudioAggregateDeviceNameKey: "MicMerge Aggregate",
-            kAudioAggregateDeviceUIDKey: "com.yefri.micmerge.aggregate",
+            kAudioAggregateDeviceNameKey: "Audify Aggregate",
+            kAudioAggregateDeviceUIDKey: "com.yefri.audify.aggregate",
             kAudioAggregateDeviceIsPrivateKey: 1,
             kAudioAggregateDeviceMainSubDeviceKey: master.uid,
             kAudioAggregateDeviceSubDeviceListKey: subDevices
