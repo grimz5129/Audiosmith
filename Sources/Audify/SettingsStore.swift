@@ -8,8 +8,8 @@ final class SettingsStore: ObservableObject {
     @Published var mergeEnabled: Bool {
         didSet { defaults.set(mergeEnabled, forKey: Keys.mergeEnabled) }
     }
-    @Published var stereoOutput: Bool {
-        didSet { defaults.set(stereoOutput, forKey: Keys.stereoOutput) }
+    @Published var deviceGains: [String: Float] {
+        didSet { defaults.set(deviceGains.mapValues(Double.init), forKey: Keys.deviceGains) }
     }
 
     private let defaults: UserDefaults
@@ -17,13 +17,14 @@ final class SettingsStore: ObservableObject {
     private enum Keys {
         static let selectedUIDs = "selectedDeviceUIDs"
         static let mergeEnabled = "mergeEnabled"
-        static let stereoOutput = "stereoOutput"
+        static let deviceGains = "deviceGains"
     }
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         selectedDeviceUIDs = Set(defaults.stringArray(forKey: Keys.selectedUIDs) ?? [])
         mergeEnabled = defaults.bool(forKey: Keys.mergeEnabled)
-        stereoOutput = defaults.bool(forKey: Keys.stereoOutput)
+        deviceGains = ((defaults.dictionary(forKey: Keys.deviceGains) as? [String: Double]) ?? [:])
+            .mapValues(Float.init)
     }
 }

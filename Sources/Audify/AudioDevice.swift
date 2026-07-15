@@ -13,6 +13,7 @@ struct AudioDevice: Identifiable, Equatable, Hashable {
                 && !device.name.localizedCaseInsensitiveContains("blackhole")
                 && !device.uid.localizedCaseInsensitiveContains("audify")
                 && !device.name.localizedCaseInsensitiveContains("audify")
+                && !device.uid.hasPrefix("CADefaultDeviceAggregate")
         }
     }
 }
