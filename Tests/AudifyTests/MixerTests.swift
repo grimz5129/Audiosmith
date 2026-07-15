@@ -7,8 +7,10 @@ final class MixerTests: XCTestCase {
     }
 
     func testSoftClipBoundsSamples() {
-        XCTAssertLessThan(Mixer.softClip(10), 1)
-        XCTAssertGreaterThan(Mixer.softClip(-10), -1)
+        // tanh asymptotes to ±1; in 32-bit Float, tanhf saturates to exactly
+        // ±1 for large inputs, so the bound is inclusive.
+        XCTAssertLessThanOrEqual(Mixer.softClip(10), 1)
+        XCTAssertGreaterThanOrEqual(Mixer.softClip(-10), -1)
         XCTAssertEqual(Mixer.softClip(0), 0)
     }
 
