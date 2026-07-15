@@ -1,5 +1,5 @@
 import XCTest
-@testable import Audify
+@testable import Audiosmith
 
 final class AudioDeviceTests: XCTestCase {
     private func device(uid: String, name: String, inputs: Int) -> AudioDevice {
@@ -17,7 +17,7 @@ final class AudioDeviceTests: XCTestCase {
     func testExcludesBlackHoleAndOwnAggregate() {
         let devices = [
             device(uid: "BlackHole2ch_UID", name: "BlackHole 2ch", inputs: 2),
-            device(uid: "com.yefri.audify.aggregate", name: "Audify Aggregate", inputs: 4),
+            device(uid: "com.yefri.audiosmith.aggregate", name: "Audiosmith Aggregate", inputs: 4),
             device(uid: "yealink", name: "Yealink CP900", inputs: 1)
         ]
         XCTAssertEqual(AudioDevice.selectableInputs(from: devices).map(\.uid), ["yealink"])

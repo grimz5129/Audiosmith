@@ -11,8 +11,8 @@ struct AudioDevice: Identifiable, Equatable, Hashable {
             device.inputChannelCount > 0
                 && !device.uid.localizedCaseInsensitiveContains("blackhole")
                 && !device.name.localizedCaseInsensitiveContains("blackhole")
-                && !device.uid.localizedCaseInsensitiveContains("audify")
-                && !device.name.localizedCaseInsensitiveContains("audify")
+                && !device.uid.localizedCaseInsensitiveContains("audiosmith")
+                && !device.name.localizedCaseInsensitiveContains("audiosmith")
                 && !device.uid.hasPrefix("CADefaultDeviceAggregate")
         }
     }
