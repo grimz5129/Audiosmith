@@ -1,5 +1,5 @@
 import XCTest
-@testable import Audify
+@testable import Audiosmith
 
 final class MixerTests: XCTestCase {
     private func device(uid: String, inputs: Int) -> AudioDevice {

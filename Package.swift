@@ -2,10 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "Audify",
+    name: "Audiosmith",
     platforms: [.macOS(.v13)],
     targets: [
-        .executableTarget(name: "Audify", path: "Sources/Audify"),
-        .testTarget(name: "AudifyTests", dependencies: ["Audify"], path: "Tests/AudifyTests")
+        .executableTarget(name: "Audiosmith", path: "Sources/Audiosmith"),
+        .testTarget(name: "AudiosmithTests", dependencies: ["Audiosmith"], path: "Tests/AudiosmithTests")
     ]
 )

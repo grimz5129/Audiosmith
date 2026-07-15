@@ -83,7 +83,7 @@ struct ContentView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            Button("Quit Audify") {
+            Button("Quit Audiosmith") {
                 state.engine.stop()
                 NSApplication.shared.terminate(nil)
             }

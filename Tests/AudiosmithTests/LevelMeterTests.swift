@@ -1,5 +1,5 @@
 import XCTest
-@testable import Audify
+@testable import Audiosmith
 
 final class LevelMeterTests: XCTestCase {
     func testRmsOfSilenceIsZero() {

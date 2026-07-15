@@ -1,12 +1,12 @@
 import XCTest
-@testable import Audify
+@testable import Audiosmith
 
 final class SettingsStoreTests: XCTestCase {
     private var defaults: UserDefaults!
 
     override func setUp() {
-        defaults = UserDefaults(suiteName: "AudifyTests")!
-        defaults.removePersistentDomain(forName: "AudifyTests")
+        defaults = UserDefaults(suiteName: "AudiosmithTests")!
+        defaults.removePersistentDomain(forName: "AudiosmithTests")
     }
 
     func testDefaultsAreEmptyAndOff() {
