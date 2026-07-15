@@ -42,10 +42,24 @@ final class AppState: ObservableObject {
         applyEngineState()
     }
 
+    func setGain(_ device: AudioDevice, to value: Float) {
+        settings.deviceGains[device.uid] = value
+        engine.updateGains(inputs: selectedDevices, gains: settings.deviceGains)
+    }
+
+    private var appliedDeviceUIDs: Set<String>?
+
+    // Starting/stopping the engine destroys/recreates the aggregate device, which
+    // itself fires the devices-changed notification that calls this method — so an
+    // unconditional restart here loops forever, flashing the mic indicator.
     private func applyEngineState() {
         let devices = selectedDevices
-        if settings.mergeEnabled && !devices.isEmpty {
-            engine.restart(inputs: devices, stereoOutput: settings.stereoOutput)
+        let shouldRun = settings.mergeEnabled && !devices.isEmpty
+        let config = shouldRun ? Set(devices.map(\.uid)) : nil
+        guard config != appliedDeviceUIDs else { return }
+        appliedDeviceUIDs = config
+        if shouldRun {
+            engine.restart(inputs: devices, gains: settings.deviceGains)
         } else {
             engine.stop()
         }

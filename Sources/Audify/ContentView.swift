@@ -25,6 +25,23 @@ struct ContentView: View {
                     get: { state.settings.selectedDeviceUIDs.contains(device.uid) },
                     set: { _ in state.toggleDevice(device) }
                 ))
+                if state.settings.selectedDeviceUIDs.contains(device.uid) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "dial.low")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Slider(value: Binding(
+                            get: { Double(state.settings.deviceGains[device.uid] ?? 1) },
+                            set: { state.setGain(device, to: Float($0)) }
+                        ), in: 0...2)
+                        Text("\(Int((state.settings.deviceGains[device.uid] ?? 1) * 100))%")
+                            .font(.caption2)
+                            .monospacedDigit()
+                            .foregroundStyle(.secondary)
+                            .frame(width: 38, alignment: .trailing)
+                    }
+                    .padding(.leading, 12)
+                }
             }
 
             Divider()

@@ -5,10 +5,9 @@ enum Mixer {
         tanh(sample)
     }
 
-    static func mixDownToMono(_ channels: [[Float]]) -> [Float] {
-        guard let frameCount = channels.map(\.count).min(), frameCount > 0 else { return [] }
-        return (0..<frameCount).map { frame in
-            softClip(channels.reduce(0) { $0 + $1[frame] })
+    static func perChannelGains(inputs: [AudioDevice], gains: [String: Float]) -> [Float] {
+        inputs.flatMap { device in
+            [Float](repeating: max(0, gains[device.uid] ?? 1), count: device.inputChannelCount)
         }
     }
 }

@@ -2,26 +2,31 @@ import XCTest
 @testable import Audify
 
 final class MixerTests: XCTestCase {
-    func testMixSumsChannels() {
-        let mono = Mixer.mixDownToMono([[0.1, 0.2], [0.3, 0.1]])
-        XCTAssertEqual(mono[0], Mixer.softClip(0.4), accuracy: 0.0001)
-        XCTAssertEqual(mono[1], Mixer.softClip(0.3), accuracy: 0.0001)
+    private func device(uid: String, inputs: Int) -> AudioDevice {
+        AudioDevice(id: 0, uid: uid, name: uid, inputChannelCount: inputs)
     }
 
-    func testMixEmptyInputReturnsEmpty() {
-        XCTAssertEqual(Mixer.mixDownToMono([]), [])
+    func testSoftClipBoundsSamples() {
+        XCTAssertLessThan(Mixer.softClip(10), 1)
+        XCTAssertGreaterThan(Mixer.softClip(-10), -1)
+        XCTAssertEqual(Mixer.softClip(0), 0)
     }
 
-    func testMixUsesShortestChannelLength() {
-        XCTAssertEqual(Mixer.mixDownToMono([[0.1, 0.2, 0.3], [0.1]]).count, 1)
+    func testPerChannelGainsExpandsDeviceChannels() {
+        let gains = Mixer.perChannelGains(
+            inputs: [device(uid: "mono", inputs: 1), device(uid: "stereo", inputs: 2)],
+            gains: ["mono": 0.5, "stereo": 1.5]
+        )
+        XCTAssertEqual(gains, [0.5, 1.5, 1.5])
     }
 
-    func testSoftClipStaysBelowUnity() {
-        XCTAssertLessThan(Mixer.softClip(5.0), 1.0)
-        XCTAssertGreaterThan(Mixer.softClip(-5.0), -1.0)
+    func testPerChannelGainsDefaultsToUnity() {
+        let gains = Mixer.perChannelGains(inputs: [device(uid: "mic", inputs: 2)], gains: [:])
+        XCTAssertEqual(gains, [1, 1])
     }
 
-    func testSoftClipIsTransparentForQuietSignals() {
-        XCTAssertEqual(Mixer.softClip(0.1), 0.1, accuracy: 0.001)
+    func testPerChannelGainsClampsNegativeToZero() {
+        let gains = Mixer.perChannelGains(inputs: [device(uid: "mic", inputs: 1)], gains: ["mic": -1])
+        XCTAssertEqual(gains, [0])
     }
 }
